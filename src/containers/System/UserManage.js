@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers } from '../../services/userService';
+import { getAllUsers, createNewUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
+import { Alert } from 'reactstrap';
 
 class UserManage extends Component {
 
@@ -22,6 +23,10 @@ class UserManage extends Component {
      * 3. Render
      */
     async componentDidMount() {
+        await this.getAllUsersFromReact();
+    }
+
+    getAllUsersFromReact = async () => {
         let response = await getAllUsers('ALL');
         if(response && response.errCode === 0){
             this.setState({
@@ -43,6 +48,24 @@ class UserManage extends Component {
         })
     }
 
+    createNewUser = async (data) => {
+        try {
+            let response = await createNewUserService(data);
+            console.log(response)
+            if(response && response.errCode !== 0){
+                alert(response.message);
+            }else{
+                await this.getAllUsersFromReact();
+                this.setState({
+                    isOpenModalUser: false
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+       
+    }
+
     render() {
         let arrUsers = this.state.arrUsers;
         return (
@@ -50,6 +73,7 @@ class UserManage extends Component {
                 <ModalUser 
                     isOpen={this.state.isOpenModalUser}
                     toggleFromParent = {this.toggleUserModal}
+                    createNewUser = {this.createNewUser}
                 />
                 <div className='title text-center'>Manage users</div>
                 <div className='mx-1'>
@@ -60,6 +84,7 @@ class UserManage extends Component {
                 </div>
                 <div className='user-table mt-3 mx-1'>
                     <table id="customers">
+                        <tbody>
                         <tr>
                             <th>Email</th>
                             <th>First Name</th>
@@ -67,6 +92,7 @@ class UserManage extends Component {
                             <th>Adress</th>
                             <th>Action</th>
                         </tr>
+                        
                         { arrUsers && arrUsers.map((item, index) => {
                             return (
                                 <>
@@ -84,7 +110,7 @@ class UserManage extends Component {
                             )
                         })}
                         
-                        
+                        </tbody>
                     </table>
                 </div>
             </div>

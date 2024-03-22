@@ -13,7 +13,7 @@ class About extends Component {
                </div>
                <div className='section-about-content'>
                     <div className='content-left'>
-                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/G9DNCVu3MoU" title="THIÊN HÀ NGOÀI TẦM VỚI [梦的地方 - 纯音乐] - Hay nhất mọi thời đại" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/G9DNCVu3MoU" title="THIÊN HÀ NGOÀI TẦM VỚI [梦的地方 - 纯音乐] - Hay nhất mọi thời đại" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                     </div>
                     <div className='content-right'>
                         <p>
